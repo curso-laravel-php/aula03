@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PartyRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
+
 
 class PartyGuyController extends Controller
 {
@@ -12,15 +15,25 @@ class PartyGuyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index(PartyRequest $req)
     {
-        try{
-            $req->validade([
-                'nome' => 'required'
-            ]);
+        /*
+        $validator = Validator::make($req->all(), [
+            'nome' => 'required|max:255|min:4|alpha'            
+        ],[
+            'nome' => ''
+        ])->validate();
+*/
+        //$validacao = null;
+       /* try{
+            $validator->validate();
+         //   $validacao = $req->validate([
+         //       'nome' => 'required'
+         //   ]);
         }catch(ValidationException $e){
+          //  dd($validacao);
             dd($e->getMessage());
-        }    
+        }    */
 
         //PHP puro: 
         //session_start()
@@ -28,6 +41,8 @@ class PartyGuyController extends Controller
         if($req->nome){
             session()->put('nome', $req->nome);
         }
+
+        return view('boaTarde', ['nome' => $req->nome]);
     }
 
     /**

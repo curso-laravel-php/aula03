@@ -14,6 +14,7 @@
                         </div>
                     @endif
 
+                    
                     Boa tarde {{$nome}}!
                 </div>
             </div>
